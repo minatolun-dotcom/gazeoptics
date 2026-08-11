@@ -48,6 +48,44 @@ function Paw() {
   )
 }
 
+/**
+ * Fluffy cheek — a cloud-cluster of fur circles so the cheek reads soft and
+ * round (real panda cheeks are loose, fluffy fur, not a crisp ellipse).
+ * The largest bumps sit on the OUTER side so the cheek ruff bulges outward.
+ */
+function Cheek({ cx }: { cx: number }) {
+  const side = cx > 200 ? 1 : -1
+  return (
+    <g>
+      <circle cx={cx} cy="254" r="46" fill="url(#panda-fur)" />
+      {/* big bumps — the fluffy outer ruff */}
+      <circle cx={cx + side * 42} cy="252" r="22" fill="url(#panda-fur)" />
+      <circle cx={cx + side * 18} cy="212" r="20" fill="url(#panda-fur)" />
+      <circle cx={cx + side * 26} cy="294" r="18" fill="url(#panda-fur)" />
+      {/* small bumps blend the cheek into the face */}
+      <circle cx={cx - side * 18} cy="290" r="16" fill="url(#panda-fur)" />
+      <circle cx={cx - side * 26} cy="222" r="14" fill="url(#panda-fur)" />
+    </g>
+  )
+}
+
+/**
+ * Teardrop eye patch, point aimed toward the nose (real pandas have diagonal
+ * patches that taper inward-down). `x` is the outer side (0 = left, 1 = right).
+ */
+function EyePatch({ cx, cy, side }: { cx: number; cy: number; side: 0 | 1 }) {
+  const d =
+    side === 0
+      ? 'M48 0 C48 30 20 44 -6 40 C-30 36 -44 20 -44 0 C-44 -22 -30 -38 -6 -40 C24 -42 48 -18 48 0 Z'
+      : 'M-48 0 C-48 30 -20 44 6 40 C30 36 44 20 44 0 C44 -22 30 -38 6 -40 C-24 -42 -48 -18 -48 0 Z'
+  const angle = side === 0 ? 18 : -18
+  return (
+    <g transform={`translate(${cx} ${cy}) rotate(${angle})`}>
+      <path d={d} fill={PATCH} />
+    </g>
+  )
+}
+
 export function PandaVisual() {
   const reduce = useReducedMotion()
   const [hovered, setHovered] = useState(false)
@@ -192,16 +230,16 @@ export function PandaVisual() {
             <circle cx="308" cy="98" r="21" fill="#3b352a" opacity="0.55" />
           </motion.g>
 
-          {/* Head — wide base + cheek puffs for the classic chubby panda face */}
+          {/* Head — wide base + fluffy cloud cheeks for the classic chubby panda face */}
           <g filter="url(#panda-soft)">
             <ellipse cx="200" cy="218" rx="148" ry="126" fill="url(#panda-fur)" />
-            <ellipse cx="76" cy="254" rx="50" ry="48" fill="url(#panda-fur)" />
-            <ellipse cx="324" cy="254" rx="50" ry="48" fill="url(#panda-fur)" />
+            <Cheek cx={76} />
+            <Cheek cx={324} />
           </g>
 
-          {/* Eye patches */}
-          <ellipse cx={L.x} cy={L.y} rx="54" ry="47" fill={PATCH} transform={`rotate(-14 ${L.x} ${L.y})`} />
-          <ellipse cx={R.x} cy={R.y} rx="54" ry="47" fill={PATCH} transform={`rotate(14 ${R.x} ${R.y})`} />
+          {/* Eye patches — teardrops pointing toward the nose */}
+          <EyePatch cx={L.x} cy={L.y} side={0} />
+          <EyePatch cx={R.x} cy={R.y} side={1} />
 
           {/* Eyes — sclera + tracking pupils (blink scales this group) */}
           <motion.g
