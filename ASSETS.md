@@ -1,8 +1,28 @@
 # Gaze Optics — Image & Asset Guide
 
-The site currently ships with **designed placeholder art** (tone-based gradients +
-brand marks) so it looks intentional before photography arrives. Replace them with
-real photos whenever you're ready.
+The gallery ships with **real stock photography** (Pexels, free license) so the site
+looks finished from day one. Each photo lives in `public/img/gallery/` and can be
+swapped for your own store photography anytime — see below.
+
+## 🖼 The gallery photos (stock, free to use)
+
+| Tile | File | Photo |
+| --- | --- | --- |
+| The Storefront | `public/img/gallery/storefront.jpg` | Eyewear showcase under bright light (Pexels #5202053) |
+| The Frame Wall | `public/img/gallery/frame-wall.jpg` | Eyeglasses on a display shelf (Pexels #5201896) |
+| Examination Suite | `public/img/gallery/exam-suite.jpg` | Eyesight check at the optical store (Pexels #5621876) |
+| Lens & Craft | `public/img/gallery/lens-craft.jpg` | Eyeglasses close-up (Pexels #7357970) |
+| The Fitting Lounge | `public/img/gallery/fitting-lounge.jpg` | Shopping for eyeglasses (Pexels #5201890) |
+| Collections in Detail | `public/img/gallery/collections.jpg` | Sunglasses product shot (Pexels #5202048) |
+
+> Pexels licence: free to use, no attribution required. Want to swap any of them?
+> Just replace the file in `public/img/gallery/` **keeping the same filename** — no
+> code changes needed. To add a new tile, add `src` and `alt` in
+> `src/content/site.ts` → `gallery` and drop the file in the same folder.
+
+---
+
+## 📸 Free / Licensed Image Sources
 
 ---
 
@@ -63,20 +83,14 @@ brass palette consistent with the site.
 | About | gradient panel + glasses mark | store interior / team photo |
 | Gallery (6 tiles) | gradient tiles in `Gallery.tsx` | storefront, frame wall, exam suite, lab, lounge, collections |
 
-**Swap a gallery tile** — in `src/components/home/Gallery.tsx`, replace the
-placeholder `<div>` inside `Tile` with:
+**Swap a gallery tile** — easiest path: overwrite the matching file in
+`public/img/gallery/` with your own photo (same filename, keep it ≤ 300 KB, JPEG or
+WebP, landscape 4:3 preferred). The site picks it up automatically — commit & push
+and it goes live.
 
-```tsx
-<img
-  src="/img/gallery/storefront.jpg"
-  alt="The Gaze Optics storefront"
-  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-  loading="lazy"
-/>
-```
-
-Drop files in `public/img/…` (or import them from `src/assets`). Keep files ≤ 200 KB
-and use JPEG/WebP; rename `tone` values to taste once real photos are in.
+To point a tile at a different file instead, edit `src/content/site.ts` → `gallery`
+(`src` and `alt` fields). The gradient you see behind each photo is just a loading
+fallback — it disappears as soon as the image loads.
 
 ## 🔬 Lens Guide visuals
 

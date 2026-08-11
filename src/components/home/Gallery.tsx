@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { gallery } from '../../content/site'
 import { SectionHeading } from '../ui/SectionHeading'
 import { Reveal } from '../ui/Reveal'
@@ -22,6 +23,8 @@ function Tile({
   index: number
   className?: string
 }) {
+  const [imgFailed, setImgFailed] = useState(false)
+  const showPhoto = !!item.src && !imgFailed
   return (
     <figure
       className={cn(
@@ -29,7 +32,7 @@ function Tile({
         className,
       )}
     >
-      {/* Placeholder artwork — replace this div with <img src=... /> (see ASSETS.md) */}
+      {/* Gradient fallback — shows while the photo loads, and if the image is missing */}
       <div
         className={cn(
           'absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.05]',
@@ -45,15 +48,23 @@ function Tile({
         </span>
       </div>
 
+      {/* Real photo — replace public/img/gallery/*.jpg with your own shots (see ASSETS.md) */}
+      {showPhoto && (
+        <img
+          src={item.src}
+          alt={item.alt}
+          loading="lazy"
+          onError={() => setImgFailed(true)}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+        />
+      )}
+
       {/* caption overlay */}
       <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 bg-linear-to-t from-ink/70 via-ink/25 to-transparent p-6 pt-16">
         <div>
           <p className="text-[10px] font-bold tracking-[0.24em] text-brass uppercase">{item.tag}</p>
           <p className="mt-1 font-serif text-2xl text-porcelain">{item.title}</p>
         </div>
-        <span className="hidden rounded-full bg-porcelain/15 px-3 py-1 text-[9px] font-semibold tracking-[0.16em] text-porcelain/80 uppercase backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 sm:block sm:opacity-0">
-          Photo coming soon
-        </span>
       </figcaption>
     </figure>
   )
@@ -67,7 +78,7 @@ export function Gallery() {
           <SectionHeading
             eyebrow="The Gallery"
             title={<>Step inside, before you visit</>}
-            description="A glimpse of the store, the craft, and the experience that awaits. These frames will be filled with real photos soon."
+            description="A glimpse of the store, the craft, and the experience that awaits. Photographed with a boutique aesthetic — your own store photos can replace these anytime (see ASSETS.md)."
           />
         </div>
 
@@ -96,8 +107,8 @@ export function Gallery() {
 
         <Reveal delay={0.1}>
           <p className="mt-8 text-center text-xs tracking-[0.14em] text-taupe">
-            Every tile is a placeholder — replace with your own store, interior, and eyewear photos. See{' '}
-            <span className="font-semibold text-bronze">ASSETS.md</span> for sources and AI image prompts.
+            Imagery is licensed stock photography — swap in your own store, interior, and eyewear photos
+            anytime. See <span className="font-semibold text-bronze">ASSETS.md</span> for how.
           </p>
         </Reveal>
       </div>
