@@ -29,8 +29,8 @@ const PAD = '#c9b398'
 const TONGUE = '#e89a85'
 
 /** Eye layout — center, sclera radii, pupil radius, max travel. */
-const L = { x: 131, y: 199, rx: 23, ry: 27 }
-const R = { x: 269, y: 199, rx: 23, ry: 27 }
+const L = { x: 126, y: 199, rx: 23, ry: 27 }
+const R = { x: 274, y: 199, rx: 23, ry: 27 }
 const PUPIL_R = 9.5
 const TRAVEL_X = 4
 const TRAVEL_Y = 3
@@ -131,7 +131,8 @@ export function PandaVisual() {
         className="relative mx-auto block h-full w-auto max-w-full"
       >
         <defs>
-          <linearGradient id="panda-fur" x1="0" y1="0" x2="0" y2="1">
+          {/* userSpaceOnUse so the cheek puffs share one continuous fur gradient */}
+          <linearGradient id="panda-fur" gradientUnits="userSpaceOnUse" x1="0" y1="88" x2="0" y2="350">
             <stop offset="0" stopColor={FUR_TOP} />
             <stop offset="1" stopColor={FUR_BOTTOM} />
           </linearGradient>
@@ -150,13 +151,13 @@ export function PandaVisual() {
         </defs>
 
         {/* Ambient glow */}
-        <circle cx="200" cy="215" r="195" fill="url(#panda-glow)" />
+        <circle cx="200" cy="215" r="205" fill="url(#panda-glow)" />
 
         {/* Contact shadow */}
-        <ellipse cx="200" cy="449" rx="116" ry="15" fill="#2b2419" opacity="0.12" />
+        <ellipse cx="200" cy="449" rx="122" ry="15" fill="#2b2419" opacity="0.12" />
 
         {/* Body */}
-        <ellipse cx="200" cy="408" rx="118" ry="62" fill="url(#panda-fur)" />
+        <ellipse cx="200" cy="408" rx="124" ry="62" fill="url(#panda-fur)" />
 
         {/* Bamboo sprig, tucked behind the head edge, held by the resting paw */}
         <g transform="rotate(-16 294 395)">
@@ -185,18 +186,22 @@ export function PandaVisual() {
             transition={{ type: 'spring', stiffness: 260, damping: 16 }}
             style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
           >
-            <circle cx="97" cy="102" r="44" fill={INK} />
-            <circle cx="97" cy="102" r="20" fill="#3b352a" opacity="0.55" />
-            <circle cx="303" cy="102" r="44" fill={INK} />
-            <circle cx="303" cy="102" r="20" fill="#3b352a" opacity="0.55" />
+            <circle cx="92" cy="98" r="45" fill={INK} />
+            <circle cx="92" cy="98" r="21" fill="#3b352a" opacity="0.55" />
+            <circle cx="308" cy="98" r="45" fill={INK} />
+            <circle cx="308" cy="98" r="21" fill="#3b352a" opacity="0.55" />
           </motion.g>
 
-          {/* Head */}
-          <circle cx="200" cy="212" r="143" fill="url(#panda-fur)" filter="url(#panda-soft)" />
+          {/* Head — wide base + cheek puffs for the classic chubby panda face */}
+          <g filter="url(#panda-soft)">
+            <ellipse cx="200" cy="218" rx="148" ry="126" fill="url(#panda-fur)" />
+            <ellipse cx="76" cy="254" rx="50" ry="48" fill="url(#panda-fur)" />
+            <ellipse cx="324" cy="254" rx="50" ry="48" fill="url(#panda-fur)" />
+          </g>
 
           {/* Eye patches */}
-          <ellipse cx={L.x} cy={L.y} rx="52" ry="46" fill={PATCH} transform={`rotate(-14 ${L.x} ${L.y})`} />
-          <ellipse cx={R.x} cy={R.y} rx="52" ry="46" fill={PATCH} transform={`rotate(14 ${R.x} ${R.y})`} />
+          <ellipse cx={L.x} cy={L.y} rx="54" ry="47" fill={PATCH} transform={`rotate(-14 ${L.x} ${L.y})`} />
+          <ellipse cx={R.x} cy={R.y} rx="54" ry="47" fill={PATCH} transform={`rotate(14 ${R.x} ${R.y})`} />
 
           {/* Eyes — sclera + tracking pupils (blink scales this group) */}
           <motion.g
@@ -218,8 +223,8 @@ export function PandaVisual() {
           </motion.g>
 
           {/* Nose */}
-          <ellipse cx="200" cy="262" rx="12.5" ry="8" fill={INK} />
-          <ellipse cx="197" cy="259.5" rx="4.4" ry="2.4" fill="#ffffff" opacity="0.5" />
+          <ellipse cx="200" cy="264" rx="12.5" ry="8" fill={INK} />
+          <ellipse cx="197" cy="261.5" rx="4.4" ry="2.4" fill="#ffffff" opacity="0.5" />
 
           {/* Warm smile with a tiny tongue */}
           <path
@@ -231,16 +236,16 @@ export function PandaVisual() {
           />
           <ellipse cx="200" cy="285.5" rx="6.5" ry="5" fill={TONGUE} />
 
-          {/* Blush */}
-          <ellipse cx="82" cy="240" rx="15.5" ry="9" fill="#d98f7a" opacity="0.38" />
-          <ellipse cx="318" cy="240" rx="15.5" ry="9" fill="#d98f7a" opacity="0.38" />
+          {/* Blush — sits on the chubby cheeks */}
+          <ellipse cx="82" cy="248" rx="16" ry="9.5" fill="#d98f7a" opacity="0.38" />
+          <ellipse cx="318" cy="248" rx="16" ry="9.5" fill="#d98f7a" opacity="0.38" />
 
           {/* Brass glasses — the Gaze Optics signature */}
           <g>
             <circle
               cx={L.x}
               cy={L.y}
-              r="54"
+              r="55"
               fill="rgba(255,255,255,0.05)"
               stroke="url(#panda-brass)"
               strokeWidth="6.5"
@@ -248,27 +253,27 @@ export function PandaVisual() {
             <circle
               cx={R.x}
               cy={R.y}
-              r="54"
+              r="55"
               fill="rgba(255,255,255,0.05)"
               stroke="url(#panda-brass)"
               strokeWidth="6.5"
             />
             <path
-              d="M177 189 Q200 176 223 189"
+              d="M172 188 Q200 175 228 188"
               fill="none"
               stroke="url(#panda-brass)"
               strokeWidth="6"
               strokeLinecap="round"
             />
             <path
-              d="M77 190 L50 168"
+              d="M72 189 L45 167"
               fill="none"
               stroke="url(#panda-brass)"
               strokeWidth="5.5"
               strokeLinecap="round"
             />
             <path
-              d="M323 190 L350 168"
+              d="M328 189 L355 167"
               fill="none"
               stroke="url(#panda-brass)"
               strokeWidth="5.5"
@@ -276,7 +281,7 @@ export function PandaVisual() {
             />
             {/* Tiny sparkle on the frame */}
             <path
-              d="M162 150 l2.1 4.6 4.6 2.1 -4.6 2.1 -2.1 4.6 -2.1 -4.6 -4.6 -2.1 4.6 -2.1 z"
+              d="M158 148 l2.1 4.6 4.6 2.1 -4.6 2.1 -2.1 4.6 -2.1 -4.6 -4.6 -2.1 4.6 -2.1 z"
               fill={BRASS_A}
               opacity="0.9"
             />
