@@ -9,14 +9,18 @@
    in from the store's details file.
 ============================================================================ */
 
+/** Years in business — auto-computed from the founding year so it stays current. */
+const experienceYears = new Date().getFullYear() - 2021
+
 export const brand = {
   name: 'Gaze Optics',
   tagline: 'Precision eye care, beautifully framed.',
-  // TODO: replace with your founding year + actual experience
-  establishedYear: 2015,
-  experienceYears: 10,
+  // Founded in 2021 (New Lamka)
+  establishedYear: 2021,
+  experienceYears,
   stats: [
-    { value: 10, suffix: '+', decimals: 0, label: 'Years of experience' },
+    { value: experienceYears, suffix: '+', decimals: 0, label: 'Years of experience' },
+    // TODO: replace the frames / customers / rating stats with your real numbers
     { value: 1200, suffix: '+', decimals: 0, label: 'Frames in store' },
     { value: 15000, suffix: '+', decimals: 0, label: 'Happy customers' },
     { value: 4.9, suffix: '★', decimals: 1, label: 'Average rating' },
