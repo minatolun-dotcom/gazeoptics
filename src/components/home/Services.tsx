@@ -64,6 +64,16 @@ export function Services() {
                     Enquire
                     <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                   </button>
+                  {service.title === 'Lens Consultation' && (
+                    <button
+                      type="button"
+                      onClick={() => scrollToId('lenses')}
+                      className="mt-3 inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.22em] text-taupe uppercase transition-colors hover:text-bronze"
+                    >
+                      Explore the lens guide
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                    </button>
+                  )}
                 </article>
               </Reveal>
             )

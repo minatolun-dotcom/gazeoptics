@@ -78,6 +78,14 @@ placeholder `<div>` inside `Tile` with:
 Drop files in `public/img/…` (or import them from `src/assets`). Keep files ≤ 200 KB
 and use JPEG/WebP; rename `tone` values to taste once real photos are in.
 
+## 🔬 Lens Guide visuals
+
+The Lens Guide section currently uses **designed SVG artwork** (see `src/components/home/LensVisual.tsx`) — clean line-art illustrations per lens type that match the brand. If you'd rather use real macro photos of lenses, swap the `LensVisual` component inside each tab for an `<img>`:
+
+> "Macro photograph of a photochromic lens half-clear half-dark, warm ivory studio background, soft light, premium product photography"
+
+Repeat with a prompt per lens type (blue-tinted lens for blue cut, gradient zones for progressive, etc.).
+
 ## 🖼 Open Graph image
 
 `public/og-image.svg` is a placeholder. For social sharing, replace it with a

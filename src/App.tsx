@@ -7,6 +7,7 @@ import { Footer } from './components/layout/Footer'
 import { Hero } from './components/home/Hero'
 import { About } from './components/home/About'
 import { Services } from './components/home/Services'
+import { LensGuide } from './components/home/LensGuide'
 import { Experience } from './components/home/Experience'
 import { WhyUs } from './components/home/WhyUs'
 import { Offer } from './components/home/Offer'
@@ -38,6 +39,7 @@ export default function App() {
           <Hero ready={!loading} />
           <About />
           <Services />
+          <LensGuide />
           <Experience />
           <WhyUs />
           <Offer />

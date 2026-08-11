@@ -54,7 +54,7 @@ export function Navbar() {
             <Wordmark />
           </button>
 
-          <ul className="hidden items-center gap-8 lg:flex">
+          <ul className="hidden items-center gap-6 xl:flex">
             {navLinks.map((link) => (
               <li key={link.id}>
                 <button
@@ -81,7 +81,7 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setOpen(true)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink xl:hidden"
               aria-label="Open menu"
               aria-expanded={open}
             >
@@ -98,7 +98,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
-            className="fixed inset-0 z-[90] flex flex-col bg-ink lg:hidden"
+            className="fixed inset-0 z-[90] flex flex-col bg-ink xl:hidden"
           >
             <div className="flex items-center justify-between px-6 py-5">
               <span className="text-porcelain">

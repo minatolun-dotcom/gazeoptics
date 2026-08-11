@@ -30,6 +30,7 @@ export const brand = {
 export const navLinks = [
   { label: 'About', id: 'about' },
   { label: 'Services', id: 'services' },
+  { label: 'Lenses', id: 'lenses' },
   { label: 'Experience', id: 'experience' },
   { label: 'Why Us', id: 'why-us' },
   { label: 'Visit Us', id: 'location' },
@@ -131,6 +132,89 @@ export const services = [
       'Temple tightening, nose-pad replacement, screw repairs, and re-fitting — quick, careful service for frames from any store.',
   },
 ]
+
+export const lensGuide = {
+  eyebrow: 'The Lens Guide',
+  heading: 'Choosing the right lens',
+  intro:
+    'Every lens starts with your prescription — then we tailor the coatings and technologies to your daily life. Tap a lens to see what it does and who it suits.',
+  note: 'General guidance — your optician at Gaze Optics will recommend the right combination for your prescription and lifestyle.',
+  types: [
+    {
+      id: 'hard-coat',
+      name: 'Hard Coat',
+      tagline: 'Scratch-resistant protection for everyday wear',
+      description:
+        'A tough outer layer that shields lenses from the scratches of daily life — keys in pockets, glasses cases, and the occasional drop.',
+      bestFor: ['Kids & active lifestyles', 'Anyone who wants longer-lasting lenses', 'Standard base protection for any pair'],
+      visual: 'hardcoat',
+    },
+    {
+      id: 'blue-cut',
+      name: 'Blue Cut',
+      tagline: 'Filters harsh screen light, gentler on the eyes',
+      description:
+        'Blocks a portion of high-energy blue light from screens and LED lighting, helping reduce digital eye strain and fatigue during long hours of work or study.',
+      bestFor: ['Office & screen workers', 'Students & online learners', 'Night-time phone or laptop users'],
+      visual: 'bluecut',
+    },
+    {
+      id: 'photochromic',
+      name: 'Photochromic',
+      tagline: 'One pair that adapts — clear indoors, dark in sunlight',
+      description:
+        'Lenses that darken automatically in UV light and turn clear again indoors. Perfect if you move between indoor and outdoor throughout the day.',
+      bestFor: ['Commuters & travellers', 'People who juggle indoor & outdoor', 'Anyone who wants one pair for everything'],
+      visual: 'photochromic',
+    },
+    {
+      id: 'polarized',
+      name: 'Polarized',
+      tagline: 'Glare-free vision for bright, reflective settings',
+      description:
+        'Filters out harsh glare from water, roads, and snow — giving crisp, comfortable vision in bright conditions. A favourite for drivers and outdoor enthusiasts.',
+      bestFor: ['Drivers', 'Outdoor sports, fishing & cycling', 'Beach, river & mountain holidays'],
+      visual: 'polarized',
+    },
+    {
+      id: 'anti-reflective',
+      name: 'Anti-Reflective',
+      tagline: 'Crystal-clear clarity without distracting reflections',
+      description:
+        'Eliminates reflections on the lens surface for sharper vision, better night driving, and a cleaner look in photos and video calls.',
+      bestFor: ['Night drivers', 'Frequent video calls & photography', 'Computer users', 'Anyone bothered by reflections'],
+      visual: 'ar',
+    },
+    {
+      id: 'progressive',
+      name: 'Progressive',
+      tagline: 'Distance to reading in one seamless lens',
+      description:
+        'A no-line multifocal lens that moves smoothly from distance to near vision — so you never have to switch between two pairs of glasses.',
+      bestFor: ['Adults 40+ with presbyopia', 'People who need both near & distance', 'Anyone who dislikes bifocal lines'],
+      visual: 'progressive',
+    },
+    {
+      id: 'high-index',
+      name: 'High-Index',
+      tagline: 'Thin & light lenses for strong prescriptions',
+      description:
+        'Advanced materials with a higher refractive index, so strong prescriptions can be made noticeably thinner, lighter, and more comfortable.',
+      bestFor: ['Strong prescriptions', 'Slim, rimless & fashion frames', 'Anyone who wants lighter glasses'],
+      visual: 'highindex',
+    },
+  ],
+  scenarios: ['Screen work', 'Outdoors & sun', 'Driving & night', 'Thin & light', 'Reading & near', 'Durability'],
+  matrix: {
+    'Hard Coat': ['helpful', 'helpful', 'helpful', 'helpful', 'helpful', 'strong'],
+    'Blue Cut': ['strong', 'helpful', 'helpful', 'helpful', 'helpful', 'helpful'],
+    'Photochromic': ['helpful', 'strong', 'helpful', 'helpful', 'helpful', 'helpful'],
+    'Polarized': ['helpful', 'strong', 'strong', 'helpful', 'none', 'helpful'],
+    'Anti-Reflective': ['strong', 'helpful', 'strong', 'helpful', 'strong', 'helpful'],
+    'Progressive': ['helpful', 'helpful', 'helpful', 'helpful', 'strong', 'helpful'],
+    'High-Index': ['helpful', 'helpful', 'helpful', 'strong', 'helpful', 'helpful'],
+  },
+}
 
 export const experience = {
   eyebrow: 'The Showroom',
