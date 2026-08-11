@@ -78,6 +78,12 @@ export const about = {
     'Honest, transparent pricing',
     'Frames chosen with you, not for you',
   ],
+  // Stock photo until you replace it with a real store/team photo (see ASSETS.md)
+  photo: {
+    src: '/img/about.jpg',
+    alt: 'Optometrist performing a comprehensive eye examination in the clinic',
+    caption: 'Care in practice',
+  },
 }
 
 export const offer = {

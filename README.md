@@ -67,8 +67,9 @@ src/
 
 1. **Text, phone, address, hours, services, brands, gallery** → `src/content/site.ts`
    (every placeholder is marked `// TODO`).
-2. **Real photos** → replace the placeholder tiles in `Gallery.tsx` and the About
-   panel with `<img>` tags. See [`ASSETS.md`](ASSETS.md).
+2. **Real photos** → the Gallery, About panel, and OG image use licensed stock
+   photos today — overwrite the files in `public/img/` with your own shots (same
+   filenames, no code changes). See [`ASSETS.md`](ASSETS.md).
 3. **SEO / domain** → `index.html` (canonical URL, OG image, JSON-LD).
 4. **Colors / fonts** → `src/index.css` (Tailwind v4 `@theme` tokens).
 

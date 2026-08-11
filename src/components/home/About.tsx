@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Eye, Target } from 'lucide-react'
 import { about, brand } from '../../content/site'
 import { SectionHeading } from '../ui/SectionHeading'
@@ -5,6 +6,32 @@ import { Reveal } from '../ui/Reveal'
 import { Counter } from '../ui/Counter'
 import { GlassesMark } from '../brand/GlassesMark'
 import { cn } from '../../lib/utils'
+
+function AboutPhoto() {
+  const [failed, setFailed] = useState(false)
+  const show = !!about.photo.src && !failed
+  return (
+    <div className="group relative aspect-[16/10] overflow-hidden rounded-3xl border border-ink/10 bg-gradient-to-br from-sand via-ivory to-porcelain">
+      <div className="grain absolute inset-0 opacity-[0.05]" />
+      {/* Brand mark as a loading/fallback layer behind the photo */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <GlassesMark className="h-24 w-24 text-brass/60" />
+      </div>
+      {show && (
+        <img
+          src={about.photo.src}
+          alt={about.photo.alt}
+          loading="lazy"
+          onError={() => setFailed(true)}
+          className="relative h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+        />
+      )}
+      <span className="absolute right-4 bottom-4 rounded-full bg-ink/80 px-3.5 py-1.5 text-[10px] font-semibold tracking-[0.18em] text-porcelain uppercase backdrop-blur-sm">
+        {about.photo.caption}
+      </span>
+    </div>
+  )
+}
 
 export function About() {
   return (
@@ -96,15 +123,9 @@ export function About() {
               </div>
             </Reveal>
 
-            {/* Photo placeholder panel */}
+            {/* Photo — stock until you replace it with a real store/team photo (see ASSETS.md) */}
             <Reveal delay={0.15} className="mt-6">
-              <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden rounded-3xl border border-ink/10 bg-gradient-to-br from-sand via-ivory to-porcelain">
-                <div className="grain absolute inset-0 opacity-[0.05]" />
-                <GlassesMark className="h-24 w-24 text-brass/60" />
-                <span className="absolute right-4 bottom-4 rounded-full bg-ink/80 px-3.5 py-1.5 text-[10px] font-semibold tracking-[0.18em] text-porcelain uppercase">
-                  About photo — coming soon
-                </span>
-              </div>
+              <AboutPhoto />
             </Reveal>
           </div>
         </div>

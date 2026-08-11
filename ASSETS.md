@@ -77,11 +77,11 @@ brass palette consistent with the site.
 
 ## 🗂 Where they go
 
-| Section | Current placeholder | Replace with |
+| Section | Current state | Replace with |
 | --- | --- | --- |
 | Hero | 3D glasses (keep!) | — (optionally add a real macro behind the 3D) |
-| About | gradient panel + glasses mark | store interior / team photo |
-| Gallery (6 tiles) | gradient tiles in `Gallery.tsx` | storefront, frame wall, exam suite, lab, lounge, collections |
+| About | stock photo at `public/img/about.jpg` | your store interior / team photo |
+| Gallery (6 tiles) | stock photos in `public/img/gallery/` | your storefront, frame wall, exam suite, lab, lounge, collections |
 
 **Swap a gallery tile** — easiest path: overwrite the matching file in
 `public/img/gallery/` with your own photo (same filename, keep it ≤ 300 KB, JPEG or
@@ -94,7 +94,7 @@ fallback — it disappears as soon as the image loads.
 
 ## 🔬 Lens Guide visuals
 
-The Lens Guide section currently uses **designed SVG artwork** (see `src/components/home/LensVisual.tsx`) — clean line-art illustrations per lens type that match the brand. If you'd rather use real macro photos of lenses, swap the `LensVisual` component inside each tab for an `<img>`:
+The Lens Guide section uses **designed SVG artwork** (see `src/components/home/LensVisual.tsx`) — clean line-art illustrations per lens type that match the brand (intentional: real macro stock photos can't reliably depict coatings like hard-coat or AR). If you'd rather use real macro photos of lenses, swap the `LensVisual` component inside each tab for an `<img>`:
 
 > "Macro photograph of a photochromic lens half-clear half-dark, warm ivory studio background, soft light, premium product photography"
 
@@ -102,6 +102,12 @@ Repeat with a prompt per lens type (blue-tinted lens for blue cut, gradient zone
 
 ## 🖼 Open Graph image
 
-`public/og-image.svg` is a placeholder. For social sharing, replace it with a
-**1200×630 PNG/JPG** (the site's branding: ivory background, glasses mark, wordmark)
-and update the `og:image` URL in `index.html`.
+`public/og-image.jpg` is a **branded 1200×630 image** (photo + wordmark, composed
+in code). To change the social-share card:
+
+1. Replace `public/og-image.jpg` with your own **1200×630** image (same filename
+   keeps `index.html` untouched), or
+2. Re-run the compositing script (ask the assistant — it builds the current card
+   from a background photo + brand text).
+
+The `og:image` URL in `index.html` points to `/og-image.jpg` — just swap the file.
