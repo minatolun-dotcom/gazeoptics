@@ -162,6 +162,16 @@ export function PandaVisual() {
             <stop offset="0" stopColor="#b08d57" stopOpacity="0.22" />
             <stop offset="1" stopColor="#b08d57" stopOpacity="0" />
           </radialGradient>
+          {/* Soft warm shade under the chin for gentle depth on the smooth face */}
+          <linearGradient id="panda-jaw" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#cbb98f" stopOpacity="0" />
+            <stop offset="1" stopColor="#cbb98f" stopOpacity="0.5" />
+          </linearGradient>
+          {/* Gradient blush — soft rose fading outward instead of a flat oval */}
+          <radialGradient id="panda-blush" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stopColor="#d98f7a" stopOpacity="0.5" />
+            <stop offset="1" stopColor="#d98f7a" stopOpacity="0" />
+          </radialGradient>
           <filter id="panda-soft" x="-40%" y="-40%" width="180%" height="180%">
             <feDropShadow dx="0" dy="12" stdDeviation="18" floodColor="#2b2419" floodOpacity="0.16" />
           </filter>
@@ -209,9 +219,10 @@ export function PandaVisual() {
             <circle cx="308" cy="98" r="21" fill="#3b352a" opacity="0.55" />
           </motion.g>
 
-          {/* Head — wide smooth base ellipse for a chubby, unblemished face */}
+          {/* Head — smooth base ellipse (slightly narrower, balanced), jaw shading for depth */}
           <g filter="url(#panda-soft)">
-            <ellipse cx="200" cy="218" rx="148" ry="126" fill="url(#panda-fur)" />
+            <ellipse cx="200" cy="218" rx="140" ry="124" fill="url(#panda-fur)" />
+            <ellipse cx="200" cy="292" rx="102" ry="48" fill="url(#panda-jaw)" />
           </g>
 
           {/* Eye patches — teardrops pointing toward the nose */}
@@ -251,9 +262,9 @@ export function PandaVisual() {
           />
           <ellipse cx="200" cy="285.5" rx="6.5" ry="5" fill={TONGUE} />
 
-          {/* Blush — sits on the chubby cheeks */}
-          <ellipse cx="82" cy="248" rx="16" ry="9.5" fill="#d98f7a" opacity="0.38" />
-          <ellipse cx="318" cy="248" rx="16" ry="9.5" fill="#d98f7a" opacity="0.38" />
+          {/* Blush — soft gradient rose on the cheeks */}
+          <ellipse cx="82" cy="248" rx="18" ry="11" fill="url(#panda-blush)" />
+          <ellipse cx="318" cy="248" rx="18" ry="11" fill="url(#panda-blush)" />
 
           {/* Brass glasses — the Gaze Optics signature */}
           <g>
