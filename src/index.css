@@ -1,0 +1,154 @@
+@import '@fontsource-variable/manrope';
+@import '@fontsource/cormorant-garamond/400.css';
+@import '@fontsource/cormorant-garamond/500.css';
+@import '@fontsource/cormorant-garamond/600.css';
+@import '@fontsource/cormorant-garamond/400-italic.css';
+@import '@fontsource/cormorant-garamond/500-italic.css';
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   GAZE OPTICS — DESIGN TOKENS (Tailwind v4)
+   See BRAND.md for the full brand style guide.
+--------------------------------------------------------------------------- */
+@theme {
+  --font-sans: 'Manrope Variable', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Georgia', serif;
+
+  /* Palette — Luxury Minimal (ivory / ink / brass) */
+  --color-ivory: #f5f2ec;
+  --color-porcelain: #fcfaf5;
+  --color-sand: #e9e1d3;
+  --color-ink: #1a1712;
+  --color-ink-soft: #262218;
+  --color-taupe: #6f675a;
+  --color-brass: #b08d57;
+  --color-bronze: #8a6a3c;
+  --color-olive: #6b6a52;
+}
+
+@layer base {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    @apply bg-ivory text-ink antialiased;
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-brass);
+    color: var(--color-porcelain);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brass);
+    outline-offset: 3px;
+  }
+
+  /* Subtle premium scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-ivory);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cfc6b5;
+    border-radius: 8px;
+    border: 2px solid var(--color-ivory);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-brass);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Utility helpers
+--------------------------------------------------------------------------- */
+
+/* Film-grain overlay — applied as a fixed layer for tactile, editorial depth */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Glassmorphism panel */
+.glass {
+  background: rgba(252, 250, 245, 0.66);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 12px 40px -18px rgba(26, 23, 18, 0.35);
+}
+
+.glass-dark {
+  background: rgba(26, 23, 18, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Hairline rule used for editorial dividers */
+.hairline {
+  border-color: rgba(26, 23, 18, 0.14);
+}
+
+/* Big ghost serif watermark behind section titles */
+.ghost-word {
+  @apply font-serif;
+  font-size: clamp(6rem, 18vw, 16rem);
+  line-height: 0.8;
+  color: rgba(26, 23, 18, 0.045);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Slow drift for ambient background shapes */
+@keyframes drift {
+  from {
+    transform: translate3d(-4%, -2%, 0) rotate(0deg);
+  }
+  to {
+    transform: translate3d(4%, 3%, 0) rotate(8deg);
+  }
+}
+
+/* Accessible skip link */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 200;
+  background: var(--color-ink);
+  color: var(--color-porcelain);
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
