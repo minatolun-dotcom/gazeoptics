@@ -79,7 +79,7 @@ brass palette consistent with the site.
 
 | Section | Current state | Replace with |
 | --- | --- | --- |
-| Hero | 3D glasses (keep!) | — (optionally add a real macro behind the 3D) |
+| Hero | panda mascot with mouse-tracking eyes (keep!) | — (optionally restyle the panda SVG in `PandaVisual.tsx`) |
 | About | stock photo at `public/img/about.jpg` | your store interior / team photo |
 | Gallery (6 tiles) | stock photos in `public/img/gallery/` | your storefront, frame wall, exam suite, lab, lounge, collections |
 

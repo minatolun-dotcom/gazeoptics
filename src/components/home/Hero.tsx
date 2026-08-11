@@ -3,7 +3,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import { Check } from 'lucide-react'
 import { hero, locationInfo } from '../../content/site'
 import { Button } from '../ui/Button'
-import { HeroVisual } from './HeroVisual'
+import { PandaVisual } from './PandaVisual'
 import { scrollToId } from '../../lib/scroll'
 
 export function Hero({ ready = true }: { ready?: boolean }) {
@@ -115,14 +115,14 @@ export function Hero({ ready = true }: { ready?: boolean }) {
           </motion.ul>
         </div>
 
-        {/* 3D Visual */}
+        {/* Panda mascot — eyes follow the cursor */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={ready ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }}
           transition={{ delay: 0.45, duration: 1, ease: [0.22, 1, 0.36, 1] }}
           className="relative h-[340px] sm:h-[440px] lg:h-[620px]"
         >
-          <HeroVisual />
+          <PandaVisual />
 
           {/* Floating glass chips */}
           <motion.div

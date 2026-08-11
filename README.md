@@ -5,16 +5,16 @@ A premium, production-quality website for **Gaze Optics**, an offline optical st
 location discovery, and services. **No e-commerce.**
 
 Design concept: **Luxury Minimal** (ivory / ink / brass) with editorial fashion
-accents and one restrained 3D centerpiece. See [`BRAND.md`](BRAND.md) for the full
+accents and one signature mascot moment. See [`BRAND.md`](BRAND.md) for the full
 style guide.
 
 ---
 
 ## ✨ Highlights
 
-- **3D centerpiece** — a champagne-gold glasses sculpture built with React Three
-  Fiber (no external models, works offline, mouse-reactive, graceful fallback
-  when WebGL is unavailable).
+- **Panda mascot** — a hand-crafted SVG panda in the brand palette whose eyes
+  follow your cursor (spring-smoothed), with a gentle blink and float. Pure SVG —
+  crisp at any size, no WebGL required.
 - **Premium interactions** — Lenis smooth scroll, film-grain texture, branded
   preloader, scroll reveals, parallax hero, animated counters, marquee, glassmorphism
   chips, magnetic-feel buttons, hover micro-interactions everywhere.
@@ -46,7 +46,7 @@ src/
   content/site.ts            # ⭐ ALL editable content & placeholders
   components/
     layout/                  # Preloader, Navbar, Footer, SmoothScroll
-    home/                    # Hero, HeroVisual, Scene3D, About, Services,
+    home/                    # Hero, PandaVisual, About, Services,
                              # Experience, WhyUs, Location, Gallery, Contact
     ui/                      # Button, Reveal, SectionHeading, Marquee, Counter, icons
     brand/                   # GlassesMark (logo)
@@ -57,8 +57,7 @@ src/
 | File | Purpose |
 | --- | --- |
 | `src/content/site.ts` | All copy, contact info, services, gallery, brands |
-| `src/components/home/Scene3D.tsx` | The 3D glasses scene (lazy-loaded) |
-| `src/components/home/HeroVisual.tsx` | WebGL detection + 3D fallback |
+| `src/components/home/PandaVisual.tsx` | The mouse-tracking panda mascot (SVG) |
 | `index.html` | SEO meta tags + JSON-LD schema |
 | `BRAND.md` | Color palette, typography, logo usage, UI style guide |
 | `ASSETS.md` | Free image sources + AI image prompts |
@@ -75,9 +74,9 @@ src/
 
 ## 🛠 Tech stack
 
-React 19 · TypeScript · Vite 6 · Tailwind CSS v4 · Framer Motion · React Three
-Fiber 9 / drei 10 / three · Lenis smooth scroll · Lucide icons · self-hosted fonts
-(Manrope Variable + Cormorant Garamond via Fontsource).
+React 19 · TypeScript · Vite 6 · Tailwind CSS v4 · Framer Motion · Lenis smooth
+scroll · Lucide icons · self-hosted fonts (Manrope Variable + Cormorant Garamond
+via Fontsource).
 
 ## 🚢 Deployment
 

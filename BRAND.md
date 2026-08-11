@@ -56,10 +56,10 @@ leads with calm confidence and lets craftsmanship speak quietly.
 
 ## 🎬 Motion Language
 
-- One signature 3D moment (hero glasses). Everything else is subtle.
+- One signature mascot moment (the hero panda). Everything else is subtle.
 - Scroll reveals: fade + 28px rise, 0.75s, easing `cubic-bezier(0.22, 1, 0.36, 1)`.
 - Hover: 300ms transitions; lifts ≤ 6px; arrows nudge 4px.
-- **Always respect `prefers-reduced-motion`** — the 3D scene stops, reveals become
+- **Always respect `prefers-reduced-motion`** — the panda float/blink stop, reveals become
   fades, marquee halts.
 
 ## ✅ Accessibility Baseline

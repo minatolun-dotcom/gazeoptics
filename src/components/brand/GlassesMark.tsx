@@ -2,7 +2,7 @@ import { cn } from '../../lib/utils'
 
 /**
  * Gaze Optics brand mark — a minimal round-frame glasses glyph.
- * Used in the navbar, footer, preloader, and as the 3D fallback.
+ * Used in the navbar, footer, preloader, and the panda's frames.
  */
 export function GlassesMark({ className }: { className?: string }) {
   return (
