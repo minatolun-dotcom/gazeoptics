@@ -1,4 +1,4 @@
-import { useEffect, useRef, type PointerEvent } from 'react'
+import { useEffect, useRef, useState, type PointerEvent } from 'react'
 import {
   animate,
   motion,
@@ -10,8 +10,9 @@ import {
 
 /**
  * Gaze Optics mascot — a round panda bust wearing the brand's brass round
- * glasses. Its eyes follow the cursor (spring-smoothed), it blinks every few
- * seconds, and it floats gently. Pure SVG: crisp at every size, no WebGL.
+ * glasses, with a bamboo sprig in one paw. Its eyes follow the cursor
+ * (spring-smoothed), it blinks lazily, and on hover its free paw pops up to
+ * wave while its ears perk. Pure SVG: crisp at every size, no WebGL.
  */
 
 const INK = '#221e18'
@@ -21,16 +22,35 @@ const FUR_BOTTOM = '#f3ede0'
 const BRASS_A = '#e6c992'
 const BRASS_B = '#b08d57'
 const BRASS_C = '#8a6a3c'
+const BAMBOO_DARK = '#5c5b45'
+const BAMBOO = '#6b6a52'
+const BAMBOO_LIGHT = '#87856a'
+const PAD = '#c9b398'
+const TONGUE = '#e89a85'
 
 /** Eye layout — center, sclera radii, pupil radius, max travel. */
-const L = { x: 131, y: 199, rx: 20, ry: 25 }
-const R = { x: 269, y: 199, rx: 20, ry: 25 }
-const PUPIL_R = 8.6
-const TRAVEL_X = 3.4
-const TRAVEL_Y = 2.6
+const L = { x: 131, y: 199, rx: 23, ry: 27 }
+const R = { x: 269, y: 199, rx: 23, ry: 27 }
+const PUPIL_R = 9.5
+const TRAVEL_X = 4
+const TRAVEL_Y = 3
+
+/** A rounded paw with soft toe-pads, drawn around a pivot so it can wave. */
+function Paw() {
+  return (
+    <g>
+      <ellipse cx="0" cy="0" rx="30" ry="22" fill={INK} />
+      <circle cx="-12" cy="-8" r="5.5" fill={PAD} />
+      <circle cx="0" cy="-11" r="5.5" fill={PAD} />
+      <circle cx="12" cy="-8" r="5.5" fill={PAD} />
+      <ellipse cx="0" cy="7" rx="12" ry="8" fill={PAD} opacity="0.85" />
+    </g>
+  )
+}
 
 export function PandaVisual() {
   const reduce = useReducedMotion()
+  const [hovered, setHovered] = useState(false)
 
   // Normalized pointer position in the visual area (-1..1)
   const px = useMotionValue(0)
@@ -40,15 +60,14 @@ export function PandaVisual() {
   const sx = useSpring(px, { stiffness: 130, damping: 20, mass: 0.6 })
   const sy = useSpring(py, { stiffness: 130, damping: 20, mass: 0.6 })
 
-  // Pupil offsets (clamped travel inside the sclera) — both eyes share the same
-  // horizontal + vertical spring, so they move together.
+  // Pupil offsets (clamped travel inside the sclera) — both eyes move together.
   const pupilX = useTransform(sx, (v) => v * TRAVEL_X)
   const pupilY = useTransform(sy, (v) => v * TRAVEL_Y)
 
   // Subtle head tilt toward the cursor
   const tilt = useTransform(sx, (v) => v * 2.4)
 
-  // Blink: eye group scaleY dips to ~0.1 for a quick closed-lid blink
+  // Blink: eye group scaleY dips for a lazy closed-lid blink
   const blink = useMotionValue(1)
 
   const containerRef = useRef<HTMLDivElement>(null)
@@ -66,7 +85,7 @@ export function PandaVisual() {
     py.set(0)
   }
 
-  // Schedule random blinks (skipped for reduced motion)
+  // Schedule lazy blinks every ~4.5–9s (skipped for reduced motion)
   useEffect(() => {
     if (reduce) return
     let timeout: number
@@ -75,13 +94,13 @@ export function PandaVisual() {
       timeout = window.setTimeout(() => {
         if (cancelled) return
         animate(blink, [1, 0.12, 1], {
-          duration: 0.32,
+          duration: 0.42,
           times: [0, 0.5, 1],
           ease: 'easeInOut',
         }).then(() => {
           if (!cancelled) schedule()
         })
-      }, 2600 + Math.random() * 3400)
+      }, 4500 + Math.random() * 4500)
     }
     schedule()
     return () => {
@@ -95,6 +114,8 @@ export function PandaVisual() {
       ref={containerRef}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
       animate={reduce ? undefined : { y: [0, -9, 0] }}
       transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
       className="relative flex h-full w-full items-center justify-center"
@@ -137,22 +158,45 @@ export function PandaVisual() {
         {/* Body */}
         <ellipse cx="200" cy="408" rx="118" ry="62" fill="url(#panda-fur)" />
 
+        {/* Bamboo sprig, tucked behind the head edge, held by the resting paw */}
+        <g transform="rotate(-16 294 395)">
+          <rect x="289" y="338" width="10" height="66" rx="5" fill={BAMBOO} />
+          <rect x="289" y="338" width="4" height="66" rx="2" fill={BAMBOO_LIGHT} opacity="0.55" />
+          <line x1="289" y1="352" x2="299" y2="352" stroke={BAMBOO_DARK} strokeWidth="2" />
+          <line x1="289" y1="370" x2="299" y2="370" stroke={BAMBOO_DARK} strokeWidth="2" />
+          <line x1="289" y1="388" x2="299" y2="388" stroke={BAMBOO_DARK} strokeWidth="2" />
+          <rect x="300" y="362" width="8" height="40" rx="4" fill={BAMBOO_LIGHT} transform="rotate(24 304 380)" />
+          {/* leaves */}
+          <path d="M294 338 q-22 -4 -30 -18 q20 -8 30 4 z" fill={BAMBOO_DARK} />
+          <path d="M294 338 q18 -12 34 -6 q4 18 -14 22 z" fill={BAMBOO_LIGHT} />
+          <path d="M300 362 q16 -2 26 6 q-6 14 -22 10 z" fill={BAMBOO} />
+        </g>
+
+        {/* Resting paw holding the bamboo (kept inside the body silhouette) */}
+        <g transform="translate(294 404) rotate(18)">
+          <Paw />
+        </g>
+
         {/* Head assembly (tilts with the cursor) */}
         <motion.g style={{ rotate: tilt }}>
-          {/* Ears */}
-          <g>
+          {/* Ears (perk on hover) */}
+          <motion.g
+            animate={hovered && !reduce ? { scale: 1.08 } : { scale: 1 }}
+            transition={{ type: 'spring', stiffness: 260, damping: 16 }}
+            style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
+          >
             <circle cx="97" cy="102" r="44" fill={INK} />
             <circle cx="97" cy="102" r="20" fill="#3b352a" opacity="0.55" />
             <circle cx="303" cy="102" r="44" fill={INK} />
             <circle cx="303" cy="102" r="20" fill="#3b352a" opacity="0.55" />
-          </g>
+          </motion.g>
 
           {/* Head */}
           <circle cx="200" cy="212" r="143" fill="url(#panda-fur)" filter="url(#panda-soft)" />
 
           {/* Eye patches */}
-          <ellipse cx={L.x} cy={L.y} rx="47" ry="42" fill={PATCH} transform={`rotate(-14 ${L.x} ${L.y})`} />
-          <ellipse cx={R.x} cy={R.y} rx="47" ry="42" fill={PATCH} transform={`rotate(14 ${R.x} ${R.y})`} />
+          <ellipse cx={L.x} cy={L.y} rx="52" ry="46" fill={PATCH} transform={`rotate(-14 ${L.x} ${L.y})`} />
+          <ellipse cx={R.x} cy={R.y} rx="52" ry="46" fill={PATCH} transform={`rotate(14 ${R.x} ${R.y})`} />
 
           {/* Eyes — sclera + tracking pupils (blink scales this group) */}
           <motion.g
@@ -163,39 +207,40 @@ export function PandaVisual() {
 
             <motion.g style={{ x: pupilX, y: pupilY }}>
               <circle cx={L.x} cy={L.y} r={PUPIL_R} fill={INK} />
-              <circle cx={L.x - 2.8} cy={L.y - 3.2} r="3.1" fill="#ffffff" />
-              <circle cx={L.x + 3} cy={L.y + 3.8} r="1.4" fill="#ffffff" opacity="0.75" />
+              <circle cx={L.x - 3} cy={L.y - 3.6} r="3.5" fill="#ffffff" />
+              <circle cx={L.x + 3.4} cy={L.y + 4.2} r="1.6" fill="#ffffff" opacity="0.75" />
             </motion.g>
             <motion.g style={{ x: pupilX, y: pupilY }}>
               <circle cx={R.x} cy={R.y} r={PUPIL_R} fill={INK} />
-              <circle cx={R.x - 2.8} cy={R.y - 3.2} r="3.1" fill="#ffffff" />
-              <circle cx={R.x + 3} cy={R.y + 3.8} r="1.4" fill="#ffffff" opacity="0.75" />
+              <circle cx={R.x - 3} cy={R.y - 3.6} r="3.5" fill="#ffffff" />
+              <circle cx={R.x + 3.4} cy={R.y + 4.2} r="1.6" fill="#ffffff" opacity="0.75" />
             </motion.g>
           </motion.g>
 
           {/* Nose */}
-          <ellipse cx="200" cy="262" rx="11.5" ry="7.5" fill={INK} />
-          <ellipse cx="197.5" cy="260" rx="4" ry="2.2" fill="#ffffff" opacity="0.5" />
+          <ellipse cx="200" cy="262" rx="12.5" ry="8" fill={INK} />
+          <ellipse cx="197" cy="259.5" rx="4.4" ry="2.4" fill="#ffffff" opacity="0.5" />
 
-          {/* Smile */}
+          {/* Warm smile with a tiny tongue */}
           <path
-            d="M186 277 Q200 289 214 277"
+            d="M184 278 Q200 292 216 278"
             fill="none"
             stroke={INK}
             strokeWidth="3"
             strokeLinecap="round"
           />
+          <ellipse cx="200" cy="285.5" rx="6.5" ry="5" fill={TONGUE} />
 
           {/* Blush */}
-          <ellipse cx="82" cy="240" rx="15" ry="8.5" fill="#d98f7a" opacity="0.32" />
-          <ellipse cx="318" cy="240" rx="15" ry="8.5" fill="#d98f7a" opacity="0.32" />
+          <ellipse cx="82" cy="240" rx="15.5" ry="9" fill="#d98f7a" opacity="0.38" />
+          <ellipse cx="318" cy="240" rx="15.5" ry="9" fill="#d98f7a" opacity="0.38" />
 
           {/* Brass glasses — the Gaze Optics signature */}
           <g>
             <circle
               cx={L.x}
               cy={L.y}
-              r="50"
+              r="54"
               fill="rgba(255,255,255,0.05)"
               stroke="url(#panda-brass)"
               strokeWidth="6.5"
@@ -203,27 +248,27 @@ export function PandaVisual() {
             <circle
               cx={R.x}
               cy={R.y}
-              r="50"
+              r="54"
               fill="rgba(255,255,255,0.05)"
               stroke="url(#panda-brass)"
               strokeWidth="6.5"
             />
             <path
-              d="M180 190 Q200 178 220 190"
+              d="M177 189 Q200 176 223 189"
               fill="none"
               stroke="url(#panda-brass)"
               strokeWidth="6"
               strokeLinecap="round"
             />
             <path
-              d="M81 191 L55 170"
+              d="M77 190 L50 168"
               fill="none"
               stroke="url(#panda-brass)"
               strokeWidth="5.5"
               strokeLinecap="round"
             />
             <path
-              d="M319 191 L345 170"
+              d="M323 190 L350 168"
               fill="none"
               stroke="url(#panda-brass)"
               strokeWidth="5.5"
@@ -231,10 +276,29 @@ export function PandaVisual() {
             />
             {/* Tiny sparkle on the frame */}
             <path
-              d="M166 152 l2.1 4.6 4.6 2.1 -4.6 2.1 -2.1 4.6 -2.1 -4.6 -4.6 -2.1 4.6 -2.1 z"
+              d="M162 150 l2.1 4.6 4.6 2.1 -4.6 2.1 -2.1 4.6 -2.1 -4.6 -4.6 -2.1 4.6 -2.1 z"
               fill={BRASS_A}
               opacity="0.9"
             />
+          </g>
+        </motion.g>
+
+        {/* Waving paw — pops up beside the face on hover */}
+        <motion.g
+          animate={
+            hovered && !reduce
+              ? { opacity: 1, y: 0, rotate: [0, 30, -10, 22, -4, 0] }
+              : { opacity: 0, y: 34, rotate: 0 }
+          }
+          transition={
+            hovered
+              ? { opacity: { duration: 0.2 }, y: { duration: 0.45, ease: 'easeOut' }, rotate: { delay: 0.15, duration: 1.1, ease: 'easeInOut' } }
+              : { duration: 0.35, ease: 'easeIn' }
+          }
+          style={{ transformBox: 'fill-box', transformOrigin: '50% 85%' }}
+        >
+          <g transform="translate(96 296) rotate(-28)">
+            <Paw />
           </g>
         </motion.g>
       </svg>
