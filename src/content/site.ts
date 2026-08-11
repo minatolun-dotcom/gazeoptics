@@ -38,6 +38,7 @@ export const navLinks = [
 
 export const hero = {
   eyebrow: 'Eye Care & Eyewear Studio',
+  offerBadge: 'Free eye test · with complete glasses made in-store',
   // "title" supports two lines: [regular, italic-serif accent]
   title: ['See clearly,', 'look extraordinary.'],
   subtitle:
@@ -78,12 +79,20 @@ export const about = {
   ],
 }
 
+export const offer = {
+  eyebrow: 'Special Offer',
+  title: 'Complimentary eye test',
+  text: 'A complete, professional eye test — free — when you have your complete glasses made at Gaze Optics.',
+  finePrint: '* Complimentary for customers who make their complete glasses at Gaze Optics.',
+  cta: 'Claim the offer',
+}
+
 export const services = [
   {
     icon: 'scan-eye',
     title: 'Eye Testing',
     description:
-      'Comprehensive eye examinations with modern diagnostic equipment, delivered by an optician who explains every step.',
+      'Comprehensive eye examinations with modern diagnostic equipment, delivered by an optician who explains every step. Free when you make your complete glasses with us.',
   },
   {
     icon: 'glasses',

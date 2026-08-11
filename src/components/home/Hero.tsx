@@ -43,6 +43,18 @@ export function Hero({ ready = true }: { ready?: boolean }) {
       >
         {/* Copy */}
         <div className="max-w-xl">
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+            transition={{ delay: 0.02, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-6"
+          >
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-brass/40 bg-brass/10 px-4 py-2 text-[10px] font-bold tracking-[0.2em] text-bronze uppercase">
+              <span className="h-1.5 w-1.5 rounded-full bg-brass" aria-hidden />
+              {hero.offerBadge}
+            </span>
+          </motion.div>
+
           <motion.p
             initial={hidden}
             animate={ready ? shown : hidden}

@@ -9,6 +9,7 @@ import { About } from './components/home/About'
 import { Services } from './components/home/Services'
 import { Experience } from './components/home/Experience'
 import { WhyUs } from './components/home/WhyUs'
+import { Offer } from './components/home/Offer'
 import { Location } from './components/home/Location'
 import { Gallery } from './components/home/Gallery'
 import { Contact } from './components/home/Contact'
@@ -39,6 +40,7 @@ export default function App() {
           <Services />
           <Experience />
           <WhyUs />
+          <Offer />
           <Location />
           <Gallery />
           <Contact />
