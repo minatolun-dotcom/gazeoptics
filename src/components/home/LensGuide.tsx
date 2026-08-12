@@ -63,16 +63,33 @@ function LensPanel({ lens }: { lens: LensType }) {
 }
 
 /** Strong / helpful / none marks for the comparison matrix. */
-function Mark({ value }: { value: string }) {
+function Mark({ value, highlight }: { value: string; highlight?: boolean }) {
   if (value === 'strong')
-    return <span className="mx-auto block h-2.5 w-2.5 rounded-full bg-brass" aria-label="Strong fit" />
+    return (
+      <span
+        aria-label="Strong fit"
+        className={cn(
+          'mx-auto block h-2.5 w-2.5 rounded-full transition-all duration-300',
+          highlight ? 'scale-125 bg-brass shadow-[0_0_14px_rgba(176,141,87,0.95)]' : 'bg-brass/80',
+        )}
+      />
+    )
   if (value === 'helpful')
-    return <span className="mx-auto block h-2.5 w-2.5 rounded-full border border-brass/70" aria-label="Helpful" />
+    return (
+      <span
+        aria-label="Helpful"
+        className={cn(
+          'mx-auto block h-2.5 w-2.5 rounded-full border transition-all duration-300',
+          highlight ? 'scale-110 border-brass bg-brass/35' : 'border-brass/70',
+        )}
+      />
+    )
   return <span className="mx-auto block h-px w-3 bg-ink/25" aria-label="Not a focus" />
 }
 
 export function LensGuide() {
   const [active, setActive] = useState(0)
+  const [scenario, setScenario] = useState<string | null>(null)
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
 
   const onKeyDown = (e: KeyboardEvent) => {
@@ -86,6 +103,15 @@ export function LensGuide() {
 
   const lens = lensGuide.types[active]
   const matrix = lensGuide.matrix as Record<string, string[]>
+
+  // Which matrix column is highlighted (if a scenario is selected).
+  const scenarioCol = scenario ? lensGuide.scenarios.indexOf(scenario) : -1
+  const bestPicks = scenario
+    ? {
+        strong: lensGuide.types.filter((t) => matrix[t.name][scenarioCol] === 'strong'),
+        helpful: lensGuide.types.filter((t) => matrix[t.name][scenarioCol] === 'helpful'),
+      }
+    : null
 
   return (
     <section id="lenses" className="relative scroll-mt-24 bg-porcelain py-24 lg:py-32">
@@ -147,7 +173,7 @@ export function LensGuide() {
         {/* Comparison matrix */}
         <Reveal delay={0.1} className="mt-16">
           <div className="overflow-hidden rounded-3xl border border-ink/10">
-            <div className="flex items-center justify-between gap-4 bg-ink px-7 py-5 sm:px-9">
+            <div className="flex flex-wrap items-center justify-between gap-4 bg-ink px-7 py-5 sm:px-9">
               <h3 className="font-serif text-2xl font-medium text-porcelain">Lens comparison</h3>
               <div className="hidden items-center gap-4 text-[10px] tracking-[0.16em] text-ivory/60 uppercase sm:flex">
                 <span className="flex items-center gap-1.5">
@@ -162,6 +188,33 @@ export function LensGuide() {
               </div>
             </div>
 
+            {/* Live "best picks" summary for the selected scenario */}
+            <div
+              aria-live="polite"
+              className="border-b border-ink/10 bg-ivory px-7 py-4 sm:px-9"
+            >
+              {bestPicks ? (
+                <p className="text-sm leading-relaxed">
+                  <span className="text-[10px] font-bold tracking-[0.22em] text-taupe uppercase">
+                    Best for {scenario}:&nbsp;
+                  </span>
+                  {bestPicks.strong.length > 0 && (
+                    <span className="font-bold text-bronze">{bestPicks.strong.map((t) => t.name).join(' · ')}</span>
+                  )}
+                  {bestPicks.strong.length > 0 && bestPicks.helpful.length > 0 && (
+                    <span className="text-taupe">&nbsp;· also&nbsp;</span>
+                  )}
+                  {bestPicks.helpful.length > 0 && (
+                    <span className="text-taupe">{bestPicks.helpful.map((t) => t.name).join(', ')}</span>
+                  )}
+                </p>
+              ) : (
+                <p className="text-sm text-taupe">
+                  Tap a need above to highlight the lenses best suited for it.
+                </p>
+              )}
+            </div>
+
             <div className="overflow-x-auto bg-ivory">
               <table className="w-full min-w-[720px] text-left">
                 <caption className="sr-only">
@@ -173,8 +226,20 @@ export function LensGuide() {
                       Lens type
                     </th>
                     {lensGuide.scenarios.map((s) => (
-                      <th key={s} scope="col" className="px-3 py-4 text-center text-[10px] font-bold tracking-[0.14em] text-taupe uppercase">
-                        {s}
+                      <th key={s} scope="col" className="px-3 py-2 text-center">
+                        <button
+                          type="button"
+                          onClick={() => setScenario(scenario === s ? null : s)}
+                          aria-pressed={scenario === s}
+                          className={cn(
+                            'rounded-full px-3 py-2 text-[10px] font-bold tracking-[0.14em] uppercase transition-all duration-300',
+                            scenario === s
+                              ? 'bg-brass/15 text-bronze'
+                              : 'text-taupe hover:bg-sand/60 hover:text-ink',
+                          )}
+                        >
+                          {s}
+                        </button>
                       </th>
                     ))}
                   </tr>
@@ -201,8 +266,21 @@ export function LensGuide() {
                         </button>
                       </th>
                       {matrix[t.name].map((value, col) => (
-                        <td key={col} className="px-3 py-4 text-center">
-                          <Mark value={value} />
+                        <td
+                          key={col}
+                          className={cn(
+                            'px-3 py-4 text-center transition-colors duration-300',
+                            scenarioCol !== -1 && col === scenarioCol && 'bg-brass/8',
+                          )}
+                        >
+                          <span
+                            className={cn(
+                              'flex justify-center transition-opacity duration-300',
+                              scenarioCol !== -1 && col !== scenarioCol && 'opacity-35',
+                            )}
+                          >
+                            <Mark value={value} highlight={scenarioCol !== -1 && col === scenarioCol} />
+                          </span>
                         </td>
                       ))}
                     </tr>

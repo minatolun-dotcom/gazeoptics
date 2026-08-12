@@ -301,6 +301,64 @@ export const whyUs = {
   ],
 }
 
+/**
+ * Testimonials — word-of-mouth social proof.
+ * TODO: Replace the placeholder reviews below with your real customer
+ * reviews (ideally from your Google Business profile). Ask happy customers
+ * for permission first, then swap names, quotes, and details here.
+ */
+export const testimonials = {
+  eyebrow: 'Word of Mouth',
+  heading: 'What our customers say',
+  text: 'The best reviews come from the people we serve every day. Here is what a few of them say about Gaze Optics.',
+  // TODO: replace all quotes/names/details below with real reviews
+  items: [
+    {
+      quote:
+        'The most patient eye test I have ever had. Sharon explains everything as she goes — no jargon, no rushing, just honest care.',
+      name: 'Rohan M.',
+      detail: 'Eye test & glasses',
+      stars: 5,
+    },
+    {
+      quote:
+        'They helped my mother choose progressive lenses and took the time to adjust them until they felt just right. She says she has not seen this clearly in years.',
+      name: 'Priya D.',
+      detail: 'Progressive lenses',
+      stars: 5,
+    },
+    {
+      quote:
+        'Bought my first pair of premium sunglasses here. The fitting advice was refreshingly honest — they even told me which frame did not suit me.',
+      name: 'David L.',
+      detail: 'Sunglasses',
+      stars: 5,
+    },
+    {
+      quote:
+        'Proper contact lens fitting — trial lenses, a follow-up, and clear care instructions. Exactly the thoroughness you want for something on your eyes.',
+      name: 'Grace T.',
+      detail: 'Contact lenses',
+      stars: 5,
+    },
+    {
+      quote:
+        'Got my glasses repaired in ten minutes while I waited. This is what a neighbourhood optical store should be.',
+      name: 'Immanuel V.',
+      detail: 'Repairs & adjustments',
+      stars: 5,
+    },
+    {
+      quote:
+        'The frame selection experience is unlike any store in town. They study your face and your style — not just your budget.',
+      name: 'Sarah H.',
+      detail: 'Frame selection',
+      stars: 5,
+    },
+  ],
+  footerNote: 'Every review is from a customer who visited our store in person.',
+}
+
 export const locationInfo = {
   eyebrow: 'Visit Us',
   heading: 'Come see us in person',
