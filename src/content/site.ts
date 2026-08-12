@@ -330,6 +330,35 @@ export const faq = {
       q: 'Do you fit contact lenses?',
       a: 'Yes — professional fitting with trial lenses, a follow-up, and clear care guidance so your lenses stay comfortable all day.',
     },
+    {
+      q: 'Where exactly is Gaze Optics located?',
+      a: 'We are on Elim Veng in New Lamka, Churachandpur — directly opposite KFC, so you cannot miss us. Find us on Google Maps for turn-by-turn directions.',
+    },
+    {
+      q: 'What are your opening hours?',
+      a: 'Monday to Saturday, 10:00 AM to 5:00 PM. We are closed on Sundays — but you can still message us on WhatsApp and we will reply once we open.',
+    },
+    {
+      q: 'How often should I get my eyes tested?',
+      a: 'Most adults should have an eye test every one to two years — sooner if you notice changes in your vision, discomfort, or if you are over 40 or managing a condition like diabetes.',
+    },
+    {
+      q: 'Can I get sunglasses with my prescription?',
+      a: 'Yes. We make prescription sunglasses with UV protection, and polarized options that cut glare — so you can see clearly and comfortably in the sun.',
+    },
+    {
+      q: 'Can you put lenses into a frame I already own?',
+      a: 'Yes, we fit lenses into most frames you bring in — we will check the frame first and advise honestly if it is suitable for your prescription.',
+    },
+    // TODO: confirm the turnaround times below with your lab — they can vary by lens type and supplier.
+    {
+      q: 'How long does it take to make my glasses?',
+      a: 'Most single-vision glasses are ready the same day or the next day. Advanced lenses like progressive, photochromic, or high-index designs may take a few extra days — we will tell you the exact time when you order.',
+    },
+    {
+      q: 'Do you test children\'s eyes?',
+      a: 'Yes — we welcome children for eye exams and carry durable frames that fit young faces. It is a good idea to have kids tested before starting school and about once a year after that.',
+    },
   ],
 }
 
