@@ -1,8 +1,9 @@
 import type { LucideIcon } from 'lucide-react'
 import { Aperture, Focus, Frame, Glasses, ScanEye, Sun, Wrench, ArrowRight } from 'lucide-react'
-import { services } from '../../content/site'
+import { booking, services } from '../../content/site'
 import { SectionHeading } from '../ui/SectionHeading'
 import { Reveal } from '../ui/Reveal'
+import { WhatsAppIcon } from '../ui/icons'
 import { scrollToId } from '../../lib/scroll'
 
 /** Map content icon keys to lucide icons. */
@@ -56,14 +57,15 @@ export function Services() {
                   <h3 className="mt-6 font-serif text-2xl font-medium text-ink">{service.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-taupe">{service.description}</p>
 
-                  <button
-                    type="button"
-                    onClick={() => scrollToId('contact')}
+                  <a
+                    href={booking.waLink(booking.buildEyeTestMessage(service.title))}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="mt-6 inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.22em] text-bronze uppercase transition-colors group-hover:text-brass"
                   >
-                    Enquire
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-                  </button>
+                    <WhatsAppIcon className="h-3.5 w-3.5" />
+                    Enquire on WhatsApp
+                  </a>
                   {service.title === 'Lens Consultation' && (
                     <button
                       type="button"

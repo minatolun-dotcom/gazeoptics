@@ -49,6 +49,19 @@ export const hero = {
   ctaPrimary: { label: 'Visit Our Store', target: 'location' },
   ctaDirections: { label: 'Get Directions', target: 'directions' },
   ctaTertiary: { label: 'Contact Us', target: 'contact' },
+  ctaBook: { label: 'Book an Eye Test', target: 'book' },
+}
+
+/**
+ * Booking — every "Book" button opens WhatsApp with a pre-filled message,
+ * so customers land on a ready-to-send enquiry (no backend needed).
+ */
+export const booking = {
+  /** Pre-filled message for an eye-test booking request. */
+  buildEyeTestMessage: (service = 'an eye test') =>
+    `Hello Gaze Optics! I would like to book ${service}. Could you please share an available slot?`,
+  /** Returns the WhatsApp deep link with a pre-filled message. */
+  waLink: (message: string) => `${locationInfo.whatsappHref}?text=${encodeURIComponent(message)}`,
 }
 
 export const about = {
@@ -307,11 +320,23 @@ export const locationInfo = {
     directionsUrl:
       'https://www.google.com/maps/dir/?api=1&destination=24.3326984,93.6943591',
   },
-  // Real hours — Monday to Saturday 10:00–17:00, Sunday closed
+  // Real hours — Monday to Saturday 10:00–17:00, Sunday closed.
+  // The site shows a live "Open now / Closed" badge computed from these.
   hours: [
     { days: 'Monday — Saturday', time: '10:00 AM — 5:00 PM' },
     { days: 'Sunday', time: 'Closed' },
   ],
+  /** Machine-readable schedule: [openDay (0=Sun … 6=Sat), openHour, closeHour]. */
+  schedule: [
+    { day: 1, open: 10, close: 17 },
+    { day: 2, open: 10, close: 17 },
+    { day: 3, open: 10, close: 17 },
+    { day: 4, open: 10, close: 17 },
+    { day: 5, open: 10, close: 17 },
+    { day: 6, open: 10, close: 17 },
+  ],
+  /** Timezone of the store (Asia/Kolkata = IST). */
+  timeZone: 'Asia/Kolkata',
   phoneDisplay: '+91 93780 72478',
   phoneHref: 'tel:+919378072478',
   whatsappDisplay: '+91 93780 72478',

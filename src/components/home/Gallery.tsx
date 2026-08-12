@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import { gallery } from '../../content/site'
 import { SectionHeading } from '../ui/SectionHeading'
 import { Reveal } from '../ui/Reveal'
+import { GalleryLightbox } from './GalleryLightbox'
 import { cn } from '../../lib/utils'
 
 /** Curated gradient tones so placeholders feel designed, not empty. */
@@ -18,19 +20,22 @@ function Tile({
   item,
   index,
   className,
+  onOpen,
 }: {
   item: (typeof gallery)[number]
   index: number
   className?: string
+  onOpen: (i: number) => void
 }) {
   const [imgFailed, setImgFailed] = useState(false)
   const showPhoto = !!item.src && !imgFailed
   return (
     <figure
       className={cn(
-        'group relative overflow-hidden rounded-3xl border border-ink/10',
+        'group relative cursor-pointer overflow-hidden rounded-3xl border border-ink/10 transition-transform duration-300 hover:-translate-y-1',
         className,
       )}
+      onClick={() => onOpen(index)}
     >
       {/* Gradient fallback — shows while the photo loads, and if the image is missing */}
       <div
@@ -66,11 +71,24 @@ function Tile({
           <p className="mt-1 font-serif text-2xl text-porcelain">{item.title}</p>
         </div>
       </figcaption>
+
+      {/* open hint */}
+      <span
+        aria-hidden
+        className="absolute top-4 right-4 rounded-full bg-ink/45 px-3 py-1.5 text-[9px] font-bold tracking-[0.18em] text-porcelain uppercase opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100"
+      >
+        View
+      </span>
     </figure>
   )
 }
 
 export function Gallery() {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+
+  const open = (i: number) => setLightboxIndex(i)
+  const close = () => setLightboxIndex(null)
+
   return (
     <section id="gallery" className="relative scroll-mt-24 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -88,18 +106,18 @@ export function Gallery() {
             if (i === 0)
               return (
                 <Reveal key={item.title} className="sm:col-span-2 sm:row-span-2">
-                  <Tile item={item} index={i} className="h-full min-h-[420px] sm:min-h-[560px]" />
+                  <Tile item={item} index={i} onOpen={open} className="h-full min-h-[420px] sm:min-h-[560px]" />
                 </Reveal>
               )
             if (i === 1)
               return (
                 <Reveal key={item.title} delay={0.1} className="sm:col-span-2">
-                  <Tile item={item} index={i} className="aspect-[16/8]" />
+                  <Tile item={item} index={i} onOpen={open} className="aspect-[16/8]" />
                 </Reveal>
               )
             return (
               <Reveal key={item.title} delay={0.08 * (i % 2)}>
-                <Tile item={item} index={i} className="aspect-[4/3]" />
+                <Tile item={item} index={i} onOpen={open} className="aspect-[4/3]" />
               </Reveal>
             )
           })}
@@ -107,11 +125,19 @@ export function Gallery() {
 
         <Reveal delay={0.1}>
           <p className="mt-8 text-center text-xs tracking-[0.14em] text-taupe">
-            Imagery is licensed stock photography — swap in your own store, interior, and eyewear photos
-            anytime. See <span className="font-semibold text-bronze">ASSETS.md</span> for how.
+            Click any photo to view it fullscreen. Imagery is licensed stock photography — swap in your
+            own store, interior, and eyewear photos anytime. See{' '}
+            <span className="font-semibold text-bronze">ASSETS.md</span> for how.
           </p>
         </Reveal>
       </div>
+
+      {/* Fullscreen viewer — AnimatePresence here so the exit fade actually plays */}
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <GalleryLightbox index={lightboxIndex} onClose={close} onNavigate={setLightboxIndex} />
+        )}
+      </AnimatePresence>
     </section>
   )
 }

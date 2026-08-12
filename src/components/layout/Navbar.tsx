@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { navLinks, locationInfo } from '../../content/site'
+import { useStoreStatus } from '../../hooks/useStoreStatus'
 import { Wordmark } from '../brand/GlassesMark'
 import { scrollToId, startScroll, stopScroll } from '../../lib/scroll'
 import { cn } from '../../lib/utils'
@@ -9,6 +10,7 @@ import { cn } from '../../lib/utils'
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const store = useStoreStatus()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 32)
@@ -70,11 +72,30 @@ export function Navbar() {
           </ul>
 
           <div className="flex items-center gap-3">
+            {/* Live open/closed indicator — computed from the real store hours */}
             <a
               href={locationInfo.map.shortLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden rounded-full bg-ink px-6 py-2.5 text-[11px] font-bold tracking-[0.18em] text-porcelain uppercase transition-colors duration-300 hover:bg-brass sm:inline-flex"
+              className="hidden items-center gap-2 rounded-full border border-ink/15 bg-porcelain/70 px-3.5 py-2 text-[10px] font-bold tracking-[0.14em] uppercase backdrop-blur transition-colors duration-300 hover:border-brass/60 sm:inline-flex"
+              aria-label={store.isOpen ? `Open now, closes at ${store.closesAt}` : `Closed now, opens ${store.opensAt}`}
+            >
+              <span
+                aria-hidden
+                className={cn(
+                  'h-1.5 w-1.5 rounded-full',
+                  store.isOpen
+                    ? 'bg-emerald-600 shadow-[0_0_8px_rgba(5,150,105,0.8)]'
+                    : 'bg-taupe',
+                )}
+              />
+              {store.isOpen ? 'Open now' : 'Closed now'}
+            </a>
+            <a
+              href={locationInfo.map.shortLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden rounded-full bg-ink px-6 py-2.5 text-[11px] font-bold tracking-[0.18em] text-porcelain uppercase transition-colors duration-300 hover:bg-brass lg:inline-flex"
             >
               Visit Us
             </a>

@@ -1,5 +1,6 @@
-import { Clock, MapPin, Navigation, Phone } from 'lucide-react'
-import { locationInfo } from '../../content/site'
+import { CalendarCheck, Clock, MapPin, Navigation, Phone } from 'lucide-react'
+import { booking, locationInfo } from '../../content/site'
+import { useStoreStatus } from '../../hooks/useStoreStatus'
 import { SectionHeading } from '../ui/SectionHeading'
 import { Reveal } from '../ui/Reveal'
 import { Button } from '../ui/Button'
@@ -7,6 +8,7 @@ import { WhatsAppIcon } from '../ui/icons'
 
 export function Location() {
   const { map, address, hours } = locationInfo
+  const store = useStoreStatus()
 
   return (
     <section id="location" className="relative scroll-mt-24 bg-porcelain py-24 lg:py-32">
@@ -38,15 +40,28 @@ export function Location() {
                   </div>
                 </div>
 
-                {/* Hours */}
+                {/* Hours + live status */}
                 <div className="flex items-start gap-4">
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brass/30 bg-brass/10 text-bronze">
                     <Clock className="h-5 w-5" />
                   </span>
                   <div className="w-full max-w-xs">
                     <p className="text-[10px] font-bold tracking-[0.24em] text-taupe uppercase">Opening Hours</p>
+                    {/* Live badge — computed from real hours (see src/content/site.ts) */}
+                    <p
+                      className="mt-2 inline-flex items-center gap-2 rounded-full border border-ink/10 bg-ivory px-3 py-1.5 text-[10px] font-bold tracking-[0.14em] uppercase"
+                      aria-live="polite"
+                    >
+                      <span
+                        aria-hidden
+                        className={`h-1.5 w-1.5 rounded-full ${store.isOpen ? 'animate-pulse bg-emerald-600 shadow-[0_0_8px_rgba(5,150,105,0.8)]' : 'bg-taupe'}`}
+                      />
+                      {store.isOpen
+                        ? `Open now · closes at ${store.closesAt}`
+                        : `Closed now · opens ${store.opensAt}`}
+                    </p>
                     {/* Real hours — edit in src/content/site.ts if they change */}
-                    <dl className="mt-1.5 space-y-1.5">
+                    <dl className="mt-3 space-y-1.5">
                       {hours.map((h) => (
                         <div key={h.days} className="flex items-baseline justify-between gap-6 border-b border-dashed border-ink/10 pb-1.5">
                           <dt className="text-sm text-taupe">{h.days}</dt>
@@ -54,6 +69,15 @@ export function Location() {
                         </div>
                       ))}
                     </dl>
+                    <a
+                      href={booking.waLink(booking.buildEyeTestMessage())}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-bronze uppercase transition-colors hover:text-brass"
+                    >
+                      <CalendarCheck className="h-3.5 w-3.5" />
+                      Book an eye test on WhatsApp
+                    </a>
                   </div>
                 </div>
 

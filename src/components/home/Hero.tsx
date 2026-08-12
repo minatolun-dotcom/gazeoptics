@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
-import { Check } from 'lucide-react'
-import { hero, locationInfo } from '../../content/site'
+import { CalendarCheck, Check } from 'lucide-react'
+import { booking, hero, locationInfo } from '../../content/site'
 import { Button } from '../ui/Button'
 import { PandaVisual } from './PandaVisual'
 import { scrollToId } from '../../lib/scroll'
@@ -94,6 +94,12 @@ export function Hero({ ready = true }: { ready?: boolean }) {
             <Button target={hero.ctaPrimary.target}>{hero.ctaPrimary.label}</Button>
             <Button variant="outline" href={locationInfo.map.shortLink}>
               {hero.ctaDirections.label}
+            </Button>
+            <Button
+              href={booking.waLink(booking.buildEyeTestMessage())}
+              icon={<CalendarCheck className="h-4 w-4" />}
+            >
+              {hero.ctaBook.label}
             </Button>
             <Button variant="ghost" target={hero.ctaTertiary.target} arrow={false}>
               {hero.ctaTertiary.label}
