@@ -92,8 +92,9 @@ export const about = {
     'Frames chosen with you, not for you',
   ],
   // Stock photo until you replace it with a real store/team photo (see ASSETS.md)
+  // Note: relative path (no leading slash) so it works on GitHub Pages sub-path deployments.
   photo: {
-    src: '/img/about.jpg',
+    src: 'img/about.jpg',
     alt: 'Optometrist performing a comprehensive eye examination in the clinic',
     caption: 'Care in practice',
   },
@@ -348,14 +349,15 @@ export const locationInfo = {
 
 // Photos are licensed stock imagery (Pexels, free to use) until you replace
 // them with your own store photos — see ASSETS.md for how.
-// Drop your photo at public/img/gallery/<name>.jpg and set src to '/img/gallery/<name>.jpg'
+// Drop your photo at public/img/gallery/<name>.jpg and set src to 'img/gallery/<name>.jpg'
+// (relative path, no leading slash — required for GitHub Pages sub-path deployments).
 export const gallery = [
-  { title: 'The Storefront', tag: 'Exterior', src: '/img/gallery/storefront.jpg', alt: 'Eyewear showcase display under bright light', tone: 'sand' },
-  { title: 'The Frame Wall', tag: 'Showroom', src: '/img/gallery/frame-wall.jpg', alt: 'Eyeglasses arranged on a display shelf', tone: 'ink' },
-  { title: 'Examination Suite', tag: 'Eye Care', src: '/img/gallery/exam-suite.jpg', alt: 'Optometrist checking a customers eyesight', tone: 'brass' },
-  { title: 'Lens & Craft', tag: 'Precision', src: '/img/gallery/lens-craft.jpg', alt: 'Close-up detail of an eyeglass lens and frame', tone: 'olive' },
-  { title: 'The Fitting Lounge', tag: 'Experience', src: '/img/gallery/fitting-lounge.jpg', alt: 'Customer browsing eyeglasses in the showroom', tone: 'bronze' },
-  { title: 'Collections in Detail', tag: 'Eyewear', src: '/img/gallery/collections.jpg', alt: 'Premium sunglasses product photography', tone: 'porcelain' },
+  { title: 'The Storefront', tag: 'Exterior', src: 'img/gallery/storefront.jpg', alt: 'Eyewear showcase display under bright light', tone: 'sand' },
+  { title: 'The Frame Wall', tag: 'Showroom', src: 'img/gallery/frame-wall.jpg', alt: 'Eyeglasses arranged on a display shelf', tone: 'ink' },
+  { title: 'Examination Suite', tag: 'Eye Care', src: 'img/gallery/exam-suite.jpg', alt: 'Optometrist checking a customers eyesight', tone: 'brass' },
+  { title: 'Lens & Craft', tag: 'Precision', src: 'img/gallery/lens-craft.jpg', alt: 'Close-up detail of an eyeglass lens and frame', tone: 'olive' },
+  { title: 'The Fitting Lounge', tag: 'Experience', src: 'img/gallery/fitting-lounge.jpg', alt: 'Customer browsing eyeglasses in the showroom', tone: 'bronze' },
+  { title: 'Collections in Detail', tag: 'Eyewear', src: 'img/gallery/collections.jpg', alt: 'Premium sunglasses product photography', tone: 'porcelain' },
 ]
 
 export const contactSection = {
