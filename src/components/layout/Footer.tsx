@@ -1,4 +1,4 @@
-import { ArrowUp, MapPin, Phone } from 'lucide-react'
+import { ArrowUp, MapPin, Phone, Star } from 'lucide-react'
 import { brand, footer, locationInfo, navLinks, services } from '../../content/site'
 import { GlassesMark } from '../brand/GlassesMark'
 import { scrollToId } from '../../lib/scroll'
@@ -99,6 +99,17 @@ export function Footer() {
                 >
                   <InstagramIcon className="h-4 w-4 shrink-0 text-brass" />
                   {locationInfo.instagramHandle}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={locationInfo.reviewUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 transition-colors hover:text-brass"
+                >
+                  <Star className="h-4 w-4 shrink-0 text-brass" />
+                  Leave a review
                 </a>
               </li>
             </ul>

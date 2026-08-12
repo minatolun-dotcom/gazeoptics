@@ -1,0 +1,6 @@
+# Gaze Optics — robots.txt
+# Live at GitHub Pages. Replace the sitemap URL here when you switch to a custom domain (see DOMAIN.md).
+User-agent: *
+Allow: /
+
+Sitemap: https://minatolun-dotcom.github.io/gazeoptics/sitemap.xml

@@ -4,6 +4,7 @@ import { ArrowUp } from 'lucide-react'
 import { Preloader } from './components/layout/Preloader'
 import { SmoothScroll } from './components/layout/SmoothScroll'
 import { Navbar } from './components/layout/Navbar'
+import { WhatsAppButton } from './components/layout/WhatsAppButton'
 import { Footer } from './components/layout/Footer'
 import { Hero } from './components/home/Hero'
 import { About } from './components/home/About'
@@ -12,6 +13,7 @@ import { LensGuide } from './components/home/LensGuide'
 import { Experience } from './components/home/Experience'
 import { WhyUs } from './components/home/WhyUs'
 import { Offer } from './components/home/Offer'
+import { Faq } from './components/home/Faq'
 import { Location } from './components/home/Location'
 import { Gallery } from './components/home/Gallery'
 import { Contact } from './components/home/Contact'
@@ -45,6 +47,7 @@ export default function App() {
           <Experience />
           <WhyUs />
           <Offer />
+          <Faq />
           <Location />
           <Gallery />
           <Contact />
@@ -55,6 +58,9 @@ export default function App() {
 
       {/* Film grain over everything for a tactile, editorial finish */}
       <div aria-hidden className="grain pointer-events-none fixed inset-0 z-[80] opacity-[0.035] mix-blend-multiply" />
+
+      {/* Always-visible WhatsApp button (back-to-top stacks above it) */}
+      <WhatsAppButton />
 
       {/* Floating back-to-top — appears after scrolling past the hero */}
       <BackToTop />
@@ -84,7 +90,7 @@ function BackToTop() {
           transition={{ duration: 0.3 }}
           onClick={() => scrollToId('home')}
           aria-label="Back to top"
-          className="glass fixed right-5 bottom-5 z-[70] inline-flex h-12 w-12 items-center justify-center rounded-full text-ink shadow-[0_18px_40px_-18px_rgba(26,23,18,0.5)] transition-colors duration-300 hover:text-brass sm:right-8 sm:bottom-8"
+          className="glass fixed right-5 bottom-24 z-[70] inline-flex h-12 w-12 items-center justify-center rounded-full text-ink shadow-[0_18px_40px_-18px_rgba(26,23,18,0.5)] transition-colors duration-300 hover:text-brass sm:right-8 sm:bottom-24"
         >
           <ArrowUp className="h-4 w-4" />
         </motion.button>

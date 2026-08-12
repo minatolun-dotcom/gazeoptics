@@ -301,6 +301,38 @@ export const whyUs = {
   ],
 }
 
+/**
+ * FAQ — common visitor questions, shown in the FAQ section and mirrored in
+ * index.html as FAQPage structured data (keep both in sync when editing).
+ */
+export const faq = {
+  eyebrow: 'Good to Know',
+  heading: 'Questions, answered',
+  text: 'Everything you might want to know before your visit. Anything else — just message us on WhatsApp.',
+  items: [
+    {
+      q: 'Do I need an appointment for an eye test?',
+      a: 'Walk-ins are always welcome. For eye exams and contact lens fittings we recommend booking ahead on WhatsApp so our optician can give you their full attention.',
+    },
+    {
+      q: 'How long does a comprehensive eye test take?',
+      a: 'Around 20–30 minutes, including a relaxed conversation about your vision needs, screen habits, and lifestyle.',
+    },
+    {
+      q: 'Is the free eye test really free?',
+      a: 'Yes — your comprehensive eye test is complimentary when you have your complete glasses made at Gaze Optics.',
+    },
+    {
+      q: 'Can you repair or adjust glasses bought elsewhere?',
+      a: 'Absolutely. Small adjustments and nose-pad or screw fixes are done on the spot — often free. Larger repairs depend on the parts needed.',
+    },
+    {
+      q: 'Do you fit contact lenses?',
+      a: 'Yes — professional fitting with trial lenses, a follow-up, and clear care guidance so your lenses stay comfortable all day.',
+    },
+  ],
+}
+
 export const locationInfo = {
   eyebrow: 'Visit Us',
   heading: 'Come see us in person',
@@ -345,6 +377,11 @@ export const locationInfo = {
   email: '', // TODO: add an email address if you have one (not currently shown on the site)
   instagram: 'https://www.instagram.com/gaze.optics',
   instagramHandle: '@gaze.optics',
+  // TODO: replace with your real Google write-review link.
+  // Find your Place ID at https://developers.google.com/maps/documentation/places/web-service/place-id
+  // then use: https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID
+  // Until then this points at your Google Maps listing (customers can tap "Review").
+  reviewUrl: 'https://maps.app.goo.gl/rYPn38XVWmwEEHqj9',
 }
 
 // Photos are licensed stock imagery (Pexels, free to use) until you replace

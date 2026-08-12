@@ -1,4 +1,4 @@
-import { CalendarCheck, Clock, MapPin, Navigation, Phone } from 'lucide-react'
+import { CalendarCheck, Clock, MapPin, Navigation, Phone, Star } from 'lucide-react'
 import { booking, locationInfo } from '../../content/site'
 import { useStoreStatus } from '../../hooks/useStoreStatus'
 import { SectionHeading } from '../ui/SectionHeading'
@@ -99,6 +99,26 @@ export function Location() {
                     Open in Google Maps
                   </Button>
                 </div>
+
+                {/* Google review request — turns happy visitors into real reviews */}
+                <a
+                  href={locationInfo.reviewUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-4 rounded-2xl border border-dashed border-brass/40 bg-brass/5 px-6 py-5 transition-colors duration-300 hover:border-brass/70 hover:bg-brass/10"
+                >
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brass/35 bg-porcelain text-brass">
+                    <Star className="h-5 w-5" />
+                  </span>
+                  <span>
+                    <span className="block text-[10px] font-bold tracking-[0.22em] text-bronze uppercase">
+                      Loved your visit?
+                    </span>
+                    <span className="mt-1 block text-sm font-medium text-ink">
+                      Review us on Google — it helps other people find us.
+                    </span>
+                  </span>
+                </a>
               </div>
             </Reveal>
           </div>

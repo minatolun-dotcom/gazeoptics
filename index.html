@@ -63,6 +63,57 @@
         "sameAs": ["https://www.instagram.com/gaze.optics"]
       }
     </script>
+
+    <!-- FAQ structured data — keep in sync with the FAQ section (src/components/home/Faq.tsx
+         + faq content in src/content/site.ts). Answers are short and match what's shown. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Do I need an appointment for an eye test?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Walk-ins are always welcome. For eye exams and contact lens fittings we recommend booking ahead on WhatsApp so our optician can give you their full attention."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does a comprehensive eye test take?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Around 20–30 minutes, including a relaxed conversation about your vision needs, screen habits, and lifestyle."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the free eye test really free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — your comprehensive eye test is complimentary when you have your complete glasses made at Gaze Optics."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can you repair or adjust glasses bought elsewhere?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutely. Small adjustments and nose-pad or screw fixes are done on the spot — often free. Larger repairs depend on the parts needed."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you fit contact lenses?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — professional fitting with trial lenses, a follow-up, and clear care guidance so your lenses stay comfortable all day."
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

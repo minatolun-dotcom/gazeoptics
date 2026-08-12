@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Gaze Optics — sitemap. Update the <loc> when you switch to a custom domain (see DOMAIN.md),
+     and bump <lastmod> whenever you publish a meaningful content update. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://minatolun-dotcom.github.io/gazeoptics/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

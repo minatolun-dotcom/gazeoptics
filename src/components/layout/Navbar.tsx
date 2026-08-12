@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import { navLinks, locationInfo } from '../../content/site'
+import { booking, navLinks, locationInfo } from '../../content/site'
 import { useStoreStatus } from '../../hooks/useStoreStatus'
 import { Wordmark } from '../brand/GlassesMark'
 import { scrollToId, startScroll, stopScroll } from '../../lib/scroll'
@@ -91,13 +91,14 @@ export function Navbar() {
               />
               {store.isOpen ? 'Open now' : 'Closed now'}
             </a>
+            {/* Primary CTA — opens WhatsApp with a pre-filled booking message */}
             <a
-              href={locationInfo.map.shortLink}
+              href={booking.waLink(booking.buildEyeTestMessage())}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden rounded-full bg-ink px-6 py-2.5 text-[11px] font-bold tracking-[0.18em] text-porcelain uppercase transition-colors duration-300 hover:bg-brass lg:inline-flex"
+              className="hidden rounded-full bg-brass px-6 py-2.5 text-[11px] font-bold tracking-[0.18em] text-ink uppercase transition-colors duration-300 hover:bg-ink hover:text-porcelain lg:inline-flex"
             >
-              Visit Us
+              Book Eye Test
             </a>
             <button
               type="button"
@@ -154,12 +155,22 @@ export function Navbar() {
               ))}
             </nav>
 
-            <div className="px-8 pb-10">
+            <div className="space-y-3 px-8 pb-10">
+              <a
+                href={booking.waLink(booking.buildEyeTestMessage())}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="inline-flex w-full items-center justify-center rounded-full bg-brass px-6 py-4 text-[11px] font-bold tracking-[0.2em] text-ink uppercase"
+              >
+                Book an Eye Test
+              </a>
               <a
                 href={locationInfo.map.shortLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center rounded-full bg-brass px-6 py-4 text-[11px] font-bold tracking-[0.2em] text-ink uppercase"
+                onClick={() => setOpen(false)}
+                className="inline-flex w-full items-center justify-center rounded-full border border-porcelain/25 px-6 py-4 text-[11px] font-bold tracking-[0.2em] text-porcelain uppercase transition-colors duration-300 hover:border-brass hover:text-brass"
               >
                 Get Directions
               </a>
