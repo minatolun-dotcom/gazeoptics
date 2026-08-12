@@ -11,7 +11,6 @@ import { Services } from './components/home/Services'
 import { LensGuide } from './components/home/LensGuide'
 import { Experience } from './components/home/Experience'
 import { WhyUs } from './components/home/WhyUs'
-import { Testimonials } from './components/home/Testimonials'
 import { Offer } from './components/home/Offer'
 import { Location } from './components/home/Location'
 import { Gallery } from './components/home/Gallery'
@@ -45,7 +44,6 @@ export default function App() {
           <LensGuide />
           <Experience />
           <WhyUs />
-          <Testimonials />
           <Offer />
           <Location />
           <Gallery />
